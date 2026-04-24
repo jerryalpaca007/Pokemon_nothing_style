@@ -13,8 +13,6 @@ async function fetchPokemon() {
 
     const data = await response.json();
     const imageUrl = data.sprites.other["official-artwork"].front_default;
-    const attack1n = data.abilities["ability"].name;
-    const attack1url = data.abilities["ability"].url;
 
     img.src = imageUrl;
     img.style.display = "block";
