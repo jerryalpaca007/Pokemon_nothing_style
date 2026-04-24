@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="syle.css">
-        <title>Pokemon_yay</title>
-    </head>
-    <body>
-        <h1>Pokemon Finder</h1>
-        <p>find your favorite pokemon on this website..</p>
-        <div class="pokemon_pic">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pokemon_yay</title>
+</head>
+<body>
+
+    <h1>Pokemon Finder</h1>
+    <p>Find your favorite pokemon on this website..</p>
+
+    <div class="pokemon_pic">
+        <input id="txtbox" placeholder="Enter Pokémon name">
+        <button onclick="fetchPokemon()">Search</button>
+    </div>
+
+    <img id="pokemonImage" style="display:none; width:200px; margin-top:20px;">
+    <h2 id ="attack"></h2>
+    <p></p>
+    <script src="index.js"></script>
+</body>
 </html>
