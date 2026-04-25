@@ -1,0 +1,22 @@
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: sans-serif;
+}
+
+input {
+  border-radius: 12px;
+  border: 4px solid #929292;
+  background: #cacaca;
+  color: white;
+}
+
+button {
+  background: #71fc9b;
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+}
+@font-face {
+  font-family: ndot;
+  src: url();
+}
