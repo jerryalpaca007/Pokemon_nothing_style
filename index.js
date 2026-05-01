@@ -18,12 +18,29 @@ const typeStyles = {
   fairy: { emoji: "✨", color: "#ee99ac" },
   normal: { emoji: "⚪", color: "#a8a878" },
 };
+function animateValue(element, end) {
+  let start = 0;
+  const duration = 600;
+  const increment = end / (duration / 4);
 
+  function update() {
+    start += increment;
+
+    if (start >= end) {
+      element.textContent = end;
+    } else {
+      element.textContent = Math.floor(start);
+      requestAnimationFrame(update);
+    }
+  }
+
+  update();
+}
 async function fetchPokemon() {
   const input = document.getElementById("txtbox").value.toLowerCase();
   const img = document.getElementById("pokemonImage");
   const container = document.getElementById("typesContainer");
-  const attackEl = document.getElementById("attack"); // 👈 link to HTML
+  const attackEl = document.getElementById("attack");
 
   const url = `https://pokeapi.co/api/v2/pokemon/${input}`;
 
@@ -35,8 +52,8 @@ async function fetchPokemon() {
     }
 
     const data = await response.json();
+    //image
 
-    // Image
     const imageUrl = data.sprites.other["official-artwork"].front_default;
     img.src = imageUrl;
     img.classList.remove("hidden");
@@ -48,7 +65,14 @@ async function fetchPokemon() {
 
     types.forEach((type) => {
       const badge = document.createElement("span");
-      badge.classList.add("type-badge");
+      badge.classList.add(
+        "px-4",
+        "py-1",
+        "rounded-full",
+        "text-sm",
+        "font-semibold",
+        "text-white",
+      );
 
       const style = typeStyles[type];
 
@@ -57,25 +81,33 @@ async function fetchPokemon() {
 
       container.appendChild(badge);
     });
-
-    // 💪 Stats (THIS IS THE NEW PART)
     const stats = data.stats;
 
-    let statsText = "";
+    attackEl.innerHTML = "";
 
     stats.forEach((s) => {
-      statsText += `${s.stat.name.toUpperCase()}: ${s.base_stat} <br>`;
-    });
+      const statItem = document.createElement("p");
+      statItem.classList.add("stat-item");
 
-    attackEl.innerHTML = statsText;
+      const label = document.createElement("span");
+      label.textContent = `${s.stat.name.toUpperCase()}: `;
+
+      const value = document.createElement("span");
+
+      statItem.appendChild(label);
+      statItem.appendChild(value);
+
+      attackEl.appendChild(statItem);
+
+      animateValue(value, s.base_stat);
+    });
   } catch (error) {
     alert("Pokémon not found 😢");
     img.classList.add("hidden");
-    attackEl.innerHTML = ""; // clear stats on error
+    attackEl.innerHTML = "";
   }
 }
 
-// ✅ Enter key fix (this part is fine, just keep it)
 document.getElementById("txtbox").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     fetchPokemon();
